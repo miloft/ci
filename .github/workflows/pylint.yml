@@ -8,6 +8,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
@@ -19,11 +20,4 @@ jobs:
           pip install pylint
           
       - name: Analysing the code with pylint
-        id: pylint
-        run: |
-          pylint `ls -R|grep .py$|xargs`
-        continue-on-error: true
-        
-      - name: Check on failures
-        if: steps.pylint != 'success'
-        run: echo ::set-output name=status::warning
+        run: pylint `ls -R|grep .py$|xargs`
